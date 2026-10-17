@@ -1,0 +1,4 @@
+2026-09-16 10:15:02;INFO;ruslan;login;18
+2026-09-16 10:15:10;WARN;anna;open_report;245
+2026-09-16 10:15:17;ERROR;ivan;save_document;830
+2026-50-16 10:15:17;ERROR;ivan;save_document;830
