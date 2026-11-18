@@ -13,27 +13,23 @@ class Queue:
     def empty(self) -> bool:
         return len(self.queue_list) == 0
 
-class Stack:
-    def __init__(self, stack_list: List[int] = []):
-        self.stack_list = stack_list
 
-    def push(self, digit: int):
-        self.stack_list.append(digit)
-
-    def pop(self) -> int:
-        return self.stack_list.pop(-1)
-
-    def empty(self) -> bool:
-        return len(self.stack_list) == 0
-
-def dfs():
-    pass
+def dfs(graph: List[List[int]], start: int, was: List[int] = None) -> List[int]:
+    if was is None:
+        was = []
+    was.append(start)
+    for vert in range(len(graph[start])):
+        if graph[vert][start] and vert not in was:
+            dfs(graph, vert, was)
+    return was
 
 def bfs(graph: List[List[int]], start: int) -> List[int]:
     was = [start]
     queue = Queue([start])
+
     while not queue.empty():
         current_vert = queue.dequeue()
+
         for vert in range(len(graph[current_vert])):
             if graph[current_vert][vert] and vert not in was:
                 was.append(vert)
@@ -47,14 +43,17 @@ def dijkstra():
 
 graph = [
  [0, 1, 0, 1, 1, 0, 0, 0],
- [1, 0, 1, 0, 0, 0, 0, 0],
- [0, 1, 0, 1, 0, 0, 1, 0],
- [1, 0, 1, 0, 0, 1, 0, 0],
- [1, 0, 0, 0, 0, 1, 0, 0],
- [0, 0, 0, 1, 1, 0, 0, 1],
+ [1, 0, 1, 0, 0, 0, 0, 0],    #     1 -- 2
+ [0, 1, 0, 1, 0, 0, 1, 0],    #    /    / \
+ [1, 0, 1, 0, 0, 1, 0, 0],    #   0 -- 3   6
+ [1, 0, 0, 0, 0, 1, 0, 0],    #    \    \   \
+ [0, 0, 0, 1, 1, 0, 0, 1],    #     4 -- 5 - 7
  [0, 0, 1, 0, 0, 0, 0, 1],
  [0, 0, 0, 0, 0, 1, 1, 0]
 ]
+
+print(dfs(graph, 4))
+print(dfs(graph, 0))
 
 print(bfs(graph, 4))
 print(bfs(graph, 0))
