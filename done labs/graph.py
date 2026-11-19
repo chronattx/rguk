@@ -60,7 +60,7 @@ def dijkstra(graph: List[List[int]], start: int, finish: int) -> List[int]:
             distances[vert] = min(distances[min_dist_vert] + dist, distances[vert])
 
 def shortest_path_bfs(graph: List[List[int]], start: int, finish: int) -> List[int]:
-    was = [(0, 0) for _ in range(len(graph))]
+    was = [(0, -1) for _ in range(len(graph))]
     was[start] = (1, -1)
     queue = Queue([start])
        
