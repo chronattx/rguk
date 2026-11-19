@@ -50,7 +50,6 @@ def dijkstra(graph: List[List[int]], start: int, finish: int) -> List[int]:
                 min_dist_vert = vert
 
         used[min_dist_vert] = 1
-        print(distances)
         if min_dist_vert == finish:
             return distances[min_dist_vert]
         
@@ -59,6 +58,30 @@ def dijkstra(graph: List[List[int]], start: int, finish: int) -> List[int]:
             if dist == 0:
                 continue
             distances[vert] = min(distances[min_dist_vert] + dist, distances[vert])
+
+def shortest_path_bfs(graph: List[List[int]], start: int, finish: int) -> List[int]:
+    was = [(0, 0) for _ in range(len(graph))]
+    was[start] = (1, -1)
+    queue = Queue([start])
+       
+    while not queue.empty():
+        current_vert = queue.dequeue()
+        
+        for vert in range(len(graph)):
+            if graph[current_vert][vert] and was[vert][0] == 0:
+                was[vert] = (1, current_vert)
+                if vert == finish:
+                    break
+                queue.enqueue(vert)
+
+    path = []
+    current_vert = finish
+    while current_vert != start:
+        path.append(current_vert)
+        current_vert = was[current_vert][1]
+    path.append(start)
+
+    return path[::-1]
 
 
 
@@ -91,5 +114,12 @@ weighted_graph = [
 ]
 
 print(dijkstra(weighted_graph, 0, 7))
-print()
-print(dijkstra(weighted_graph, 2, 4))
+print(dijkstra(weighted_graph, 2, 4), "\n")
+
+print(shortest_path_bfs(graph, 0, 7))
+print(shortest_path_bfs(graph, 1, 5))
+print(shortest_path_bfs(graph, 2, 4), "\n")
+
+print(dijkstra(graph, 0, 7))
+print(dijkstra(graph, 1, 5))
+print(dijkstra(graph, 2, 4), "\n")
