@@ -87,7 +87,7 @@ int true_print(int * begin, int * end) {
 
 void print_error(int code) {
     switch (code) {
-        case 0:            break;   /* успех — молчим */
+        case 0:            break;   
         case ARR_ERR_SIZE: printf("Error: too many elements (max %d).\n", MAX_SIZE); break;
         case ARR_ERR_IN:   printf("Error: invalid input format.\n"); break;
         default:           printf("Unknown error code: %d\n", code); break;
